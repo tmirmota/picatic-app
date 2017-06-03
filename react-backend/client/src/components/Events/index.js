@@ -1,33 +1,47 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import Event from './Event';
 
 class Events extends Component {
   state = {
-    eventSections: []
+    eventStatus: []
   }
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { events } = nextProps;
-    console.log(events);
-    events.map(event => {
-      console.log(event.attributes.status);
-    })
-
+    const allEventStatus = _.map(events, 'attributes.status');
+    const eventStatus = _.uniq(allEventStatus);
+    this.setState({ eventStatus })
   }
-  renderEvents() {
+  renderEvents(status) {
     const events = this.props.events.map(event => {
+      const statusMatch = event.attributes.status === status;
+      if (statusMatch) {
+        return (
+          <div key={event.id}>
+            <Event event={event} />
+          </div>
+        );
+      }
+    })
+    return events;
+  }
+  renderStatus() {
+    const eventStatus = this.state.eventStatus.map(status => {
       return (
-        <div key={event.id}>
-          <Event event={event} />
+        <div key={status}>
+          <div>{status}
+          </div>
+          {this.renderEvents(status)}
         </div>
       );
     })
-    return events;
+    return eventStatus;
   }
   render() {
     return (
       <div>
-        {this.renderEvents()}
+        {this.renderStatus()}
       </div>
     )
   }
