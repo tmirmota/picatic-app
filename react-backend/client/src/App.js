@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-const myInit = {
-  method: 'GET',
-  Authorization: 'Bearer sk_live_210eb57e6b95e5143c492a219091c4e5'
-}
+// Components
+import Events from './components/Events';
+
+// const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5'; // Thomas'
+const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Challenge
+
+// 575569
 
 class App extends Component {
   state = {
-    json: []
+    events: []
   }
   componentDidMount(){
-    fetch('http://localhost:3000/event?page[limit]=12&page[offset]=12')
+    fetch('https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${API_KEY}`
+      }
+    })
     .then(res => res.json())
-    .then(json => this.setState({ json }));
+    .then(events => this.setState({ events: events.data }));
   }
   render() {
-    console.log(this.state.json);
+    const { events } = this.state;
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div>
+        <div>
+          Select and Event
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Events events={events} />
       </div>
     );
   }

@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 var fetch = require('node-fetch');
 
-const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5';
+
+// const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5'; // Thomas'
+const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Challenge
+
 
 /* GET home page. */
 router.get('/:path', function(req, res) {
@@ -14,6 +17,7 @@ router.get('/:path', function(req, res) {
       'Authorization': `Bearer ${API_KEY}`
     }
   })
+
   // Resolve promise
   .then(apiRes => apiRes.json())
   .then(apiRes => res.json(apiRes))
