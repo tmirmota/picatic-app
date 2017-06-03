@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const myInit = {
+  method: 'GET',
+  Authorization: 'Bearer sk_live_210eb57e6b95e5143c492a219091c4e5'
+}
+
 class App extends Component {
   state = {
-    users: []
+    json: []
   }
   componentDidMount(){
-    fetch('/users')
+    fetch('http://localhost:3000/event?page[limit]=12&page[offset]=12')
     .then(res => res.json())
-    .then(users => this.setState({ users }));
+    .then(json => this.setState({ json }));
   }
   render() {
-    console.log(this.state.users);
+    console.log(this.state.json);
     return (
       <div className="App">
         <div className="App-header">

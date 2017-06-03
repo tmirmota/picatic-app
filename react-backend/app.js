@@ -43,4 +43,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('https://api.picatic.com/v2/event/:id', (req, res) => {
+  res.send('event ' + req.params.id);
+});
+
 module.exports = app;
