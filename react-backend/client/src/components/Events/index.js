@@ -5,30 +5,18 @@ import Event from './Event';
 
 class Events extends Component {
   state = {
-    typeStatus: [
-      'active',
-      'draft',
-      'closed'
+    statuses: [
+      {type: 'active', title: 'Live'},
+      {type: 'draft', title: 'Draft'},
+      {type: 'closed', title: 'Closed'}
     ],
-    liveStatus: []
+    liveStatuses: []
   }
-  componentWillReceiveProps(nextProps) {
-    const { events } = nextProps;
-    const { liveStatus } = this.state;
+  componentWillReceiveProps({ events }) {
+    const allEventStatuses = _.map(events, 'attributes.status');
+    const liveStatuses = _.uniq(allEventStatuses);
 
-    const allEventStatus = _.map(events, 'attributes.status');
-    const liveStatus = _.uniq(allEventStatus);
-
-    const containsActive = uniqueStatus.indexOf('active') > - 1;
-    const containsDraft = uniqueStatus.indexOf('draft') > - 1;
-    const containsClosed = uniqueStatus.indexOf('closed') > - 1;
-
-    containsActive ? eventStatus.push('active') : false;
-    containsDraft ? eventStatus.push('draft') : false;
-    containsClosed ? eventStatus.push('closed') : false;
-
-    this.setState({ eventStatus })
-
+    this.setState({ liveStatuses });
   }
   renderEvents(status) {
     const events = this.props.events.map(event => {
@@ -44,14 +32,16 @@ class Events extends Component {
     return events;
   }
   renderStatus() {
-    const eventStatus = this.state.eventStatus.map(status => {
-      const statusTitle = _.upperFirst(status.replace('active', 'live'));
-      return (
-        <div key={status}>
-          <div>{statusTitle}</div>
-          {this.renderEvents(status)}
-        </div>
-      );
+    const eventStatus = this.state.statuses.map(status => {
+      const isLive = this.state.liveStatuses.indexOf(status.type) > -1;
+      if (isLive) {
+        return (
+          <div key={status.type}>
+            <div>{status.title}</div>
+            {this.renderEvents(status.type)}
+          </div>
+        );
+      }
     })
     return eventStatus;
   }

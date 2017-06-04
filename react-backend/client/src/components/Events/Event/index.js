@@ -5,7 +5,6 @@ export default ({ event }) => {
   return (
     <div>
       <h1>{attr.title}</h1>
-      <h3>{attr.status}</h3>
     </div>
   )
 }
