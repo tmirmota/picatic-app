@@ -31,8 +31,6 @@ class App extends Component {
   }
 
   getTickets(id){
-    console.log(id);
-
     fetch(`https://api.picatic.com/v2/ticket_price?filter\[event_id\]=${id}&page\[limit\]=10&page\[offset\]=0`, {
       method: 'GET',
       headers: {
