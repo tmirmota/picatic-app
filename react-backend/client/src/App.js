@@ -14,7 +14,8 @@ const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Chal
 class App extends Component {
   state = {
     events: [],
-    selectedEvent: {}
+    selectedEvent: {},
+    tickets: []
   }
   componentDidMount(){
     fetch('https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0', {
@@ -29,12 +30,26 @@ class App extends Component {
 
   }
 
+  getTickets(id){
+    console.log(id);
+
+    fetch(`https://api.picatic.com/v2/ticket_price?filter\[event_id\]=${id}&page\[limit\]=10&page\[offset\]=0`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${API_KEY}`
+      }
+    })
+    .then(res => res.json())
+    .then(tickets => this.setState({ tickets: tickets.data }));
+  }
+
   handleSelect = (event) => {
+    this.getTickets(event.id);
     this.setState({ selectedEvent: event });
   }
 
   render() {
-    const { events, selectedEvent } = this.state;
+    const { events, selectedEvent, tickets } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">
@@ -53,7 +68,7 @@ class App extends Component {
             </div>
           </div>
 
-          <SelectedEvent selectedEvent={selectedEvent} />
+          <SelectedEvent event={selectedEvent} tickets={tickets} />
 
         </div>
       </div>

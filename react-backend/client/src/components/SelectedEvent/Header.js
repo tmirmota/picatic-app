@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default () => {
+export default ({ title }) => {
   return(
     <div>
-      Manager Header
+      {title}
     </div>
   )
 }

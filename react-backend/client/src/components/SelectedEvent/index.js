@@ -2,23 +2,30 @@ import React, { Component } from 'react';
 
 // Components
 import Header from './Header';
+import Table from './Table';
 
 class SelectedEvent extends Component {
   render() {
-    return (
-      <div className="col-8">
-        <div className="row">
-          <div className="col">
-            <Header />
+    const { event, tickets } = this.props;
+    if (event.id) {
+      return (
+        <div className="col-8">
+          <div className="row">
+            <div className="col">
+              <Header title={event.attributes.title} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <p>Tickets</p>
+              <Table event={event} tickets={tickets} />
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col">
-            Manager Content
-          </div>
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return false;
+    }
   }
 }
 
