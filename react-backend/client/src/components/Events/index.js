@@ -19,13 +19,16 @@ class Events extends Component {
     this.setState({ liveStatuses });
   }
   renderEvents(status) {
+    const { handleSelect } = this.props;
     const events = this.props.events.map(event => {
       const statusMatch = event.attributes.status === status;
       if (statusMatch) {
         return (
-          <div key={event.id}>
-            <Event event={event} />
-          </div>
+          <li className="nav-item" key={event.id}>
+            <a className="nav-link" onClick={() => handleSelect(event)}>
+              <Event event={event} />
+            </a>
+          </li>
         );
       }
     })
@@ -36,10 +39,10 @@ class Events extends Component {
       const isLive = this.state.liveStatuses.indexOf(status.type) > -1;
       if (isLive) {
         return (
-          <div key={status.type}>
+          <ul className="nav flex-column" key={status.type}>
             <div>{status.title}</div>
             {this.renderEvents(status.type)}
-          </div>
+          </ul>
         );
       }
     })
@@ -47,9 +50,9 @@ class Events extends Component {
   }
   render() {
     return (
-      <div>
+      <nav>
         {this.renderStatuses()}
-      </div>
+      </nav>
     )
   }
 }
