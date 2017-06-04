@@ -8,6 +8,7 @@ import Events from './components/Events';
 const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Challenge
 
 // 575569
+// https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0
 
 class App extends Component {
   state = {
@@ -20,8 +21,10 @@ class App extends Component {
         'Authorization': `Bearer ${API_KEY}`
       }
     })
+    // fetch('http://localhost:3000/event?filter[user_id]=575569&page[limit]=12&page[offset]=0')
     .then(res => res.json())
     .then(events => this.setState({ events: events.data }));
+
   }
   render() {
     const { events } = this.state;
