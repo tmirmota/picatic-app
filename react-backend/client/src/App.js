@@ -29,11 +29,16 @@ class App extends Component {
   render() {
     const { events } = this.state;
     return (
-      <div>
-        <div>
-          Select and Event
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-4 sidebar manager_content_sidebar_top">
+            <div className="manager_content_sidebar_top text-white">
+              <p className="text-white">Select an Event</p>
+            </div>
+            <Events events={events} />
+          </div>
+
         </div>
-        <Events events={events} />
       </div>
     );
   }

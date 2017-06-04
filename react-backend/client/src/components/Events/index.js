@@ -31,7 +31,7 @@ class Events extends Component {
     })
     return events;
   }
-  renderStatus() {
+  renderStatuses() {
     const eventStatus = this.state.statuses.map(status => {
       const isLive = this.state.liveStatuses.indexOf(status.type) > -1;
       if (isLive) {
@@ -48,7 +48,7 @@ class Events extends Component {
   render() {
     return (
       <div>
-        {this.renderStatus()}
+        {this.renderStatuses()}
       </div>
     )
   }
