@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import './Events.css'
 
+// Material UI Components
+import Menu from 'material-ui/Menu';
+
+// Components
 import Event from './Event';
 
 class Events extends Component {
@@ -24,36 +29,40 @@ class Events extends Component {
     const { statuses, liveStatuses } = this.state;
     const { events, handleSelect } = this.props;
     return (
-      <nav>
+      <div>
 
         {/* Render Status Sections */}
         {statuses.map(status => {
           const isLive = liveStatuses.indexOf(status.type) > -1;
           if (isLive) {
             return (
-              <ul className="nav flex-column" key={status.type}>
-                <h4>{status.title}</h4>
+              <nav className="nav flex-column" key={status.type}>
+                <p className="manage_content_sidebar_status">{status.title}</p>
 
                 {/* Render Events */}
                 {events.map(event => {
                   const statusMatch = event.attributes.status === status.type;
                   if (statusMatch) {
-                    return <Event
-                              key={event.id}
-                              event={event}
-                              handleSelect={handleSelect} />
+                    return (
+                      <Menu>
+                        <Event
+                          key={event.id}
+                          event={event}
+                          handleSelect={handleSelect} />
+                      </Menu>
+                    )
                   } else {
                     return false;
                   }
                 })}
 
-              </ul>
+              </nav>
             );
           } else {
             return false;
           }
         })}
-      </nav>
+      </div>
     )
   }
 }

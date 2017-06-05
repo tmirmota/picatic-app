@@ -1,5 +1,12 @@
 .manage_content_sidebar_top {
-  background-color: #3C4DAC;
+  background-color: #3949A3;
+}
+
+.manage_content_sidebar_top_heading {
+  line-height: 96px;
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  font-weight: 300;
 }
 
 .manage_content_sidebar_events {

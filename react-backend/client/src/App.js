@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // Components
 import Events from './components/Events';
 import SelectedEvent from './components/SelectedEvent';
@@ -58,36 +60,40 @@ class App extends Component {
   render() {
     const { events, selectedEvent, tickets, editTicketId } = this.state;
     return (
-      <div className="container-fluid">
-        <div className="row">
+      <MuiThemeProvider>
+        <div className="container-fluid">
+          <div className="row">
 
-          {/* SideBar */}
-          <div className="col-4">
-            <div className="row">
-              <div className="col manage_content_sidebar_top">
-                <p className="text-white">Select an Event</p>
+            {/* SideBar */}
+            <div className="col-3">
+              <div className="row">
+                <div className="col manage_content_sidebar_top">
+                  <span className="manage_content_sidebar_top_heading">Select an Event</span>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col manage_content_sidebar_events py-5">
+                  <Events
+                    events={events}
+                    handleSelect={this.handleSelect}
+                  />
+                </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col manage_content_sidebar_events">
-                <Events
-                  events={events}
-                  handleSelect={this.handleSelect}
-                />
-              </div>
+
+            {/* Manage Event */}
+            <div className="col-9">
+              <SelectedEvent
+                event={selectedEvent}
+                tickets={tickets}
+                editTicketId={editTicketId}
+                handleEdit={this.handleEdit}
+              />
             </div>
+
           </div>
-
-          {/* Manage Event */}
-          <SelectedEvent
-            event={selectedEvent}
-            tickets={tickets}
-            editTicketId={editTicketId}
-            handleEdit={this.handleEdit}
-          />
-
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }

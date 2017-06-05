@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import './SelectedEvent.css';
 
 // Components
-import Header from './Header';
 import Table from './Table';
 
 class SelectedEvent extends Component {
@@ -9,10 +9,12 @@ class SelectedEvent extends Component {
     const { event, tickets, editTicketId, handleEdit } = this.props;
     if (event.id) {
       return (
-        <div className="col-8">
+        <div>
           <div className="row">
-            <div className="col">
-              <Header title={event.attributes.title} />
+            <div className="col manage_content_top">
+              <span className="manage_content_top_heading">
+                {event.attributes.title}
+              </span>
             </div>
           </div>
           <div className="row">
