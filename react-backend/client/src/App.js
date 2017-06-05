@@ -15,7 +15,8 @@ class App extends Component {
   state = {
     events: [],
     selectedEvent: {},
-    tickets: []
+    tickets: [],
+    editTicketId: null
   }
   componentDidMount(){
     fetch('https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0', {
@@ -43,11 +44,15 @@ class App extends Component {
 
   handleSelect = (event) => {
     this.getTickets(event.id);
-    this.setState({ selectedEvent: event });
+    this.setState({ selectedEvent: event, editTicketId: null });
+  }
+
+  handleEdit = (id) => {
+    this.setState({ editTicketId: id });
   }
 
   render() {
-    const { events, selectedEvent, tickets } = this.state;
+    const { events, selectedEvent, tickets, editTicketId } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">
@@ -66,7 +71,12 @@ class App extends Component {
             </div>
           </div>
 
-          <SelectedEvent event={selectedEvent} tickets={tickets} />
+          <SelectedEvent
+            event={selectedEvent}
+            tickets={tickets}
+            editTicketId={editTicketId}
+            handleEdit={this.handleEdit}
+          />
 
         </div>
       </div>

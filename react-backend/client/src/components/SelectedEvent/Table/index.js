@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 
 export default class Table extends Component {
-  state = {
-    editId: null
-  }
-
-  handleEdit(id) {
-    this.setState({ editId: id })
-  }
   render() {
-    const { tickets } = this.props;
+    const { tickets, editTicketId, handleEdit } = this.props;
     return (
       <form>
         <table className="table">
@@ -27,7 +20,7 @@ export default class Table extends Component {
             {/* Render Each Row */}
             {tickets.map(ticket => {
               const attr = ticket.attributes;
-              const editTicket = ticket.id === this.state.editId;
+              const editTicket = ticket.id === editTicketId;
               if (!editTicket) {
                 return (
                   <tr key={ticket.id}>
@@ -35,7 +28,7 @@ export default class Table extends Component {
                     <td>{attr.price}</td>
                     <td>{attr.quantity}</td>
                     <td>{attr.status}</td>
-                    <td><button className="btn btn-primary" onClick={() => this.handleEdit(ticket.id)}>Edit</button></td>
+                    <td><button className="btn btn-primary" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
                   </tr>
                 )
               } else {
