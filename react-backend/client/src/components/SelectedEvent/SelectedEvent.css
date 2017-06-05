@@ -9,3 +9,24 @@
   font-weight: 100;
   line-height: 96px;
 }
+
+.manage_content_table {
+  height: calc(100vh - 96px);
+}
+
+.manage_content_table_title {
+  font-size: 1.5rem;
+  padding-top: 2rem;
+}
+
+.manage_content_starting_title {
+  font-size: 2.125rem;
+  font-weight: 100;
+  color: #000000;
+}
+
+.manage_content_starting_subtitle {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.54);
+}

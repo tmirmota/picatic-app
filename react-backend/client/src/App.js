@@ -65,13 +65,13 @@ class App extends Component {
           <div className="row">
 
             {/* SideBar */}
-            <div className="col-3 px-0">
+            <div className="col-sm-4 col-md-4 col-lg-2 manage_content_sidebar_events px-0">
               <div className="col manage_content_sidebar_top">
                 <span className="manage_content_sidebar_top_heading">
                   Select an Event
                 </span>
               </div>
-              <div className="manage_content_sidebar_events">
+              <div className="pt-3">
                 <Events
                   events={events}
                   handleSelect={this.handleSelect}
@@ -80,7 +80,7 @@ class App extends Component {
             </div>
 
             {/* Manage Event */}
-            <div className="col-9">
+            <div className="col-sm-8 col-md-9 col-lg-10">
               <SelectedEvent
                 event={selectedEvent}
                 tickets={tickets}

@@ -29,7 +29,7 @@ export default class Row extends Component {
           <td>{attr.price}</td>
           <td>{attr.quantity}</td>
           <td>{attr.status}</td>
-          <td><button className="btn btn-primary" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
+          <td className="text-center"><button className="btn btn-primary" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
         </tr>
       )
     } else {
@@ -71,7 +71,7 @@ export default class Row extends Component {
               onChange={this.handleInputChange}
             />
           </td>
-          <td>
+          <td className="text-center">
             <input
               type="button"
               className="btn btn-success"

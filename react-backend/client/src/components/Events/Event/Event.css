@@ -1,7 +1,9 @@
 .sidebar_event_title {
   font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .sidebar_event_date {
   font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
 }
