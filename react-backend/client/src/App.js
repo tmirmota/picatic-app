@@ -8,6 +8,8 @@ import Events from './components/Events';
 import SelectedEvent from './components/SelectedEvent';
 
 // const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5'; // Thomas'
+
+
 const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Challenge
 
 // 575569
