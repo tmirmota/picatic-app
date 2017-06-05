@@ -66,12 +66,12 @@ class App extends Component {
 
             {/* SideBar */}
             <div className="col-3 px-0">
-              <div className="manage_content_sidebar_top">
+              <div className="col manage_content_sidebar_top">
                 <span className="manage_content_sidebar_top_heading">
                   Select an Event
                 </span>
               </div>
-              <div className="manage_content_sidebar_events py-5">
+              <div className="manage_content_sidebar_events">
                 <Events
                   events={events}
                   handleSelect={this.handleSelect}

@@ -1,24 +1,42 @@
 import React from 'react';
+import './Event.css';
 
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 
+const styles = {
+  menuItem: {
+    lineHeight: '18px',
+    height: '64px'
+  },
+  innerDiv: {
+    paddingTop: '14px',
+  }
+}
+
 export default ({ event, handleSelect }) => {
   const attr = event.attributes;
   return (
-    <MenuItem onClick={() => handleSelect(event)}>
-      <div className="row align-items-center">
-        <div className="col-9">
-          <span>{attr.title}</span>
-          <br/>
-          <span>{attr.end_date}</span>
+    <div>
+      <MenuItem
+        style={styles.menuItem}
+        innerDivStyle={styles.innerDiv}
+        onClick={() => handleSelect(event)}>
+        <div className="row align-items-center">
+          <div className="col-9 sidebar_event">
+            <span className="sidebar_event_title">{attr.title}</span>
+            <br/>
+            <span className="sidebar_event_date">{attr.end_date}</span>
+          </div>
+          <div className="col-3">
+            <ChevronRight className="float-right"/>
+          </div>
         </div>
-        <div className="col-3">
-          <ChevronRight className="float-right"/>
-        </div>
+      </MenuItem>
+      <div className="col">
+        <Divider />
       </div>
-      <Divider />
-    </MenuItem>
+    </div>
   )
 }
