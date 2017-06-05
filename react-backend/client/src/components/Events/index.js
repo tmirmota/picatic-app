@@ -36,7 +36,7 @@ class Events extends Component {
           const isLive = liveStatuses.indexOf(status.type) > -1;
           if (isLive) {
             return (
-              <nav className="nav flex-column" key={status.type}>
+              <div key={status.type}>
                 <p className="manage_content_sidebar_status">{status.title}</p>
 
                 {/* Render Events */}
@@ -44,9 +44,8 @@ class Events extends Component {
                   const statusMatch = event.attributes.status === status.type;
                   if (statusMatch) {
                     return (
-                      <Menu>
+                      <Menu key={event.id} autoWidth={false} width={500} >
                         <Event
-                          key={event.id}
                           event={event}
                           handleSelect={handleSelect} />
                       </Menu>
@@ -56,12 +55,13 @@ class Events extends Component {
                   }
                 })}
 
-              </nav>
+              </div>
             );
           } else {
             return false;
           }
         })}
+
       </div>
     )
   }
