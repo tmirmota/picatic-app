@@ -1,5 +1,10 @@
-.manager_content_sidebar_top {
+.manage_content_sidebar_top {
   background-color: #3C4DAC;
+}
+
+.manage_content_sidebar_events {
+  background-color: rgba(0, 0, 0, 0.05);
+  min-height: 100vh;
 }
 
 .manage-header {

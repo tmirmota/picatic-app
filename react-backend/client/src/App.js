@@ -28,7 +28,6 @@ class App extends Component {
     // fetch('http://localhost:3000/event?filter[user_id]=575569&page[limit]=12&page[offset]=0')
     .then(res => res.json())
     .then(events => this.setState({ events: events.data }));
-
   }
 
   getTickets(id){
@@ -48,8 +47,13 @@ class App extends Component {
   }
 
   handleEdit = (id) => {
-    this.setState({ editTicketId: id });
+    const saveId = id === this.state.editTicketId;
+    saveId ? (
+      this.setState({ editTicketId: null })
+    ) : this.setState({ editTicketId: id });
   }
+
+
 
   render() {
     const { events, selectedEvent, tickets, editTicketId } = this.state;
@@ -60,17 +64,21 @@ class App extends Component {
           {/* SideBar */}
           <div className="col-4">
             <div className="row">
-              <div className="col manager_content_sidebar_top">
+              <div className="col manage_content_sidebar_top">
                 <p className="text-white">Select an Event</p>
               </div>
             </div>
             <div className="row">
-              <div className="col">
-                <Events events={events} handleSelect={this.handleSelect} />
+              <div className="col manage_content_sidebar_events">
+                <Events
+                  events={events}
+                  handleSelect={this.handleSelect}
+                />
               </div>
             </div>
           </div>
 
+          {/* Manage Event */}
           <SelectedEvent
             event={selectedEvent}
             tickets={tickets}

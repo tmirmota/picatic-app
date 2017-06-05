@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Row from './Row';
+
 export default class Table extends Component {
   render() {
     const { tickets, editTicketId, handleEdit } = this.props;
@@ -19,52 +21,14 @@ export default class Table extends Component {
 
             {/* Render Each Row */}
             {tickets.map(ticket => {
-              const attr = ticket.attributes;
-              const editTicket = ticket.id === editTicketId;
-              if (!editTicket) {
-                return (
-                  <tr key={ticket.id}>
-                    <td>{attr.name}</td>
-                    <td>{attr.price}</td>
-                    <td>{attr.quantity}</td>
-                    <td>{attr.status}</td>
-                    <td><button className="btn btn-primary" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
-                  </tr>
-                )
-              } else {
-                return (
-                  <tr key={ticket.id}>
-                    <td>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={attr.name} />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={attr.price} />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={attr.quantity} />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={attr.status} />
-                    </td>
-                    <td>
-                      <button className="btn btn-success">Save</button>
-                    </td>
-                  </tr>
-                )
-              }
+              return <Row
+                      key={ticket.id}
+                      ticket={ticket}
+                      editTicketId={editTicketId}
+                      handleEdit={handleEdit}
+                     />
             })}
+
           </tbody>
         </table>
       </form>
