@@ -49,6 +49,8 @@ export default class App extends Component {
     .then(tickets => this.setState({ tickets: tickets.data }));
   }
 
+  // The use of arrow functions is to bind this for handle Select, Edit & Save
+
   handleSelect = (event) => {
     this.getTickets(event.id);
     this.setState({

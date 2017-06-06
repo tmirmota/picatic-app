@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import './Row.css';
 
-class Row extends Component {
+export default class Row extends Component {
   state = {
     ticket: {
       name: null,
@@ -16,36 +16,48 @@ class Row extends Component {
       'Closed'
     ]
   }
+
+  // Update state with original ticket data before row loads
   componentWillMount() {
     this.updateTicket();
   }
+
+  // Update state with new ticket date after save
   componentWillReceiveProps() {
     this.updateTicket();
   }
+
   updateTicket() {
-    const {
-      name, price, quantity, status
-    } = this.props.ticket.attributes;
+    // Destructure attributes
+    const { name, price, quantity, status } = this.props.ticket.attributes;
+
     this.setState({ ticket: { name, price, quantity, status } })
   }
+
+  // Update state on input change
   handleInputChange = ({ target }) => {
+    // Store value of input
     const value = target.value;
+
+    // Store ref of input
     const name = target.name;
+
     this.setState({ ticket: { [name]: value } })
   }
+
   render() {
-
-    const {
-      ticket, editTicketId, handleEdit, handleSave
-    } = this.props;
-
-    const {
-      name, price, quantity, status
-    } = this.state.ticket;
-
-    const { statusOptions } = this.state;
+    // Destructure props and props ticket attributes
+    const { ticket, editTicketId, handleEdit, handleSave } = this.props;
     const attr = ticket.attributes;
-    const capitalizeState = _.upperFirst(attr.status)
+
+    // Destructure state and ticket state
+    const { statusOptions } = this.state;
+    const { name, price, quantity, status } = this.state.ticket;
+
+    // Capitalize ticket statuses
+    const capitalizeState = _.upperFirst(attr.status);
+
+    // Render form inputs if ticket edit button is clicked
     const shouldEditTicket = ticket.id === editTicketId;
     if (!shouldEditTicket) {
       return (
@@ -54,10 +66,13 @@ class Row extends Component {
           <td>${attr.price}</td>
           <td>{attr.quantity}</td>
           <td>{capitalizeState}</td>
-          <td className="text-center"><button className="btn btn_ticket_edit" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
+          <td className="text-center">
+            <button className="btn btn_ticket_edit" onClick={() => handleEdit(ticket.id)}>Edit</button>
+          </td>
         </tr>
       )
     } else {
+      // TODO: Should consider building a resuable component to render inputs
       return (
         <tr key={ticket.id}>
           <td>
@@ -101,10 +116,17 @@ class Row extends Component {
               required
               >
               {statusOptions.map(option => {
+
+                // Does option match state ticket status
                 const isSelected = _.toLower(option) === _.toLower(status);
-                return isSelected
-                ? <option key={option} selected>{option}</option>
-                : <option key={option}>{option}</option>
+
+                // TODO: Should turn into ternary
+                if (isSelected) {
+                  return <option key={option} selected>{option}</option>
+                } else {
+                  return <option key={option}>{option}</option>
+                }
+
               })}
             </select>
           </td>
@@ -121,5 +143,3 @@ class Row extends Component {
     }
   }
 }
-
-export default Row;

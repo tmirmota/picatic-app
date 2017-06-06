@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './Table.css';
 
-import Row from './Row/index';
+// Components
+import Row from './Row';
 
 export default class Table extends Component {
   render() {
+    // Destructure props
     const { tickets, editTicketId, handleEdit, handleSave } = this.props;
+
     return (
       <form>
         <table className="table ">
@@ -23,11 +26,11 @@ export default class Table extends Component {
             {/* Render Each Row */}
             {tickets.map(ticket => {
               return <Row
-                      key={ticket.id}
-                      ticket={ticket}
-                      editTicketId={editTicketId}
-                      handleEdit={handleEdit}
-                      handleSave={handleSave}
+                       key={ticket.id}
+                       ticket={ticket}
+                       editTicketId={editTicketId}
+                       handleEdit={handleEdit}
+                       handleSave={handleSave}
                      />
             })}
 
