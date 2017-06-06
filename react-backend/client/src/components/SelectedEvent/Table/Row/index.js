@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import './Row.css';
 
-export default class Row extends Component {
+class Row extends Component {
   state = {
+    ticket: {
+      name: null,
+      price: null,
+      quantity: null,
+      status: null
+    },
     statusOptions: [
       'Open',
       'Hidden',
@@ -16,28 +23,38 @@ export default class Row extends Component {
     this.updateTicket();
   }
   updateTicket() {
-    const { name, price, quantity, status } = this.props.ticket.attributes;
-    this.setState({ name, price, quantity, status })
+    const {
+      name, price, quantity, status
+    } = this.props.ticket.attributes;
+    this.setState({ ticket: { name, price, quantity, status } })
   }
-  handleInputChange = (event) => {
-    const target = event.target;
+  handleInputChange = ({ target }) => {
     const value = target.value;
     const name = target.name;
-    this.setState({ [name]: value})
+    this.setState({ ticket: { [name]: value } })
   }
   render() {
-    const { ticket, editTicketId, handleEdit } = this.props;
-    const { name, price, quantity, status, statusOptions } = this.state;
+
+    const {
+      ticket, editTicketId, handleEdit, handleSave
+    } = this.props;
+
+    const {
+      name, price, quantity, status
+    } = this.state.ticket;
+
+    const { statusOptions } = this.state;
     const attr = ticket.attributes;
-    const editTicket = ticket.id === editTicketId;
-    if (!editTicket) {
+    const capitalizeState = _.upperFirst(attr.status)
+    const shouldEditTicket = ticket.id === editTicketId;
+    if (!shouldEditTicket) {
       return (
         <tr key={ticket.id}>
-          <td>{attr.name}</td>
+          <td className="ticket_table_body_title">{attr.name}</td>
           <td>${attr.price}</td>
           <td>{attr.quantity}</td>
-          <td>{attr.status}</td>
-          <td className="text-center"><button className="btn btn-primary" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
+          <td>{capitalizeState}</td>
+          <td className="text-center"><button className="btn btn_ticket_edit" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
         </tr>
       )
     } else {
@@ -94,9 +111,9 @@ export default class Row extends Component {
           <td className="text-center">
             <input
               type="button"
-              className="btn btn-success"
+              className="btn btn_ticket_save"
               value="Save"
-              onClick={() => handleEdit(ticket.id)}
+              onClick={() => handleSave(ticket.id, this.state.ticket)}
             />
           </td>
         </tr>
@@ -104,3 +121,5 @@ export default class Row extends Component {
     }
   }
 }
+
+export default Row;

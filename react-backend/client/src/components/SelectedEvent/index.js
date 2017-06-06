@@ -15,6 +15,7 @@ class SelectedEvent extends Component {
             tickets={tickets}
             editTicketId={editTicketId}
             handleEdit={handleEdit}
+            handleSave={handleSave}
           />
         </div>
       ) : (
@@ -25,7 +26,7 @@ class SelectedEvent extends Component {
         </div>
       )
     }
-    const { event, tickets, editTicketId, handleEdit } = this.props;
+    const { event, tickets, editTicketId, handleEdit, handleSave } = this.props;
     const title = event.id ? event.attributes.title : null;
     return (
       <div>

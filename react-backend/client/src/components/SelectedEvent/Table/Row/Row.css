@@ -1,0 +1,39 @@
+.form-control,
+.input-group-addon {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.custom-select {
+  height: 35px !important;
+}
+
+.ticket_table_body_title {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.btn_ticket_edit {
+  width: 88px;
+  height: 32px;
+  background-color: #3F51B5;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.btn_ticket_edit:active,
+.btn_ticket_edit:hover {
+  background-color: rgba(63, 81, 181, 0.9);
+}
+
+.btn_ticket_save {
+  width: 88px;
+  height: 32px;
+  background-color: #33CB7B;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.btn_ticket_save:active,
+.btn_ticket_save:hover {
+  background-color: rgba(51, 203, 123, 0.9);
+}

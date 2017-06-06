@@ -9,7 +9,6 @@ import SelectedEvent from './components/SelectedEvent';
 
 // const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5'; // Thomas'
 
-
 const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Challenge
 
 // 575569
@@ -51,10 +50,28 @@ class App extends Component {
   }
 
   handleEdit = (id) => {
-    const saveId = id === this.state.editTicketId;
-    saveId ? (
-      this.setState({ editTicketId: null })
-    ) : this.setState({ editTicketId: id });
+    this.setState({ editTicketId: id });
+  }
+
+  handleSave = (id, newTicket) => {
+    console.log(id, newTicket);
+
+    fetch(`https://api.picatic.com/v2/ticket_price/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${API_KEY}`
+      },
+      body: JSON.stringify(
+        { "data":
+          {"attributes":
+            newTicket
+          }
+        }
+      )
+    })
+    .then(res => console.log(res))
+    .catch(res => console.log(res))
+    this.setState({ editTicketId: null });
   }
 
 
@@ -88,6 +105,7 @@ class App extends Component {
                 tickets={tickets}
                 editTicketId={editTicketId}
                 handleEdit={this.handleEdit}
+                handleSave={this.handleSave}
               />
             </div>
 
