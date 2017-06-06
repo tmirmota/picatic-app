@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 export default class Row extends Component {
   state = {
-    ticketStatuses: [
+    statusOptions: [
       'Open',
       'Hidden',
       'Closed'
     ]
   }
   componentWillMount() {
-    this.ticketValue();
+    this.updateTicket();
   }
   componentWillReceiveProps() {
-    this.ticketValue();
+    this.updateTicket();
   }
-  ticketValue() {
+  updateTicket() {
     const { name, price, quantity, status } = this.props.ticket.attributes;
     this.setState({ name, price, quantity, status })
   }
@@ -26,7 +27,7 @@ export default class Row extends Component {
   }
   render() {
     const { ticket, editTicketId, handleEdit } = this.props;
-    const { name, price, quantity, status, ticketStatuses } = this.state;
+    const { name, price, quantity, status, statusOptions } = this.state;
     const attr = ticket.attributes;
     const editTicket = ticket.id === editTicketId;
     if (!editTicket) {
@@ -79,13 +80,14 @@ export default class Row extends Component {
             <select
               name="status"
               className="form-control custom-select"
-              value={status}
               onClick={this.handleInputChange}
               required
               >
-              {ticketStatuses.map(ticketStatus => {
-                const isSelected = ticketStatus === status;
-                return isSelected ? <option key={ticketStatus} selected>{ticketStatus}</option> : <option key={ticketStatus}>{ticketStatus}</option>
+              {statusOptions.map(option => {
+                const isSelected = _.toLower(option) === _.toLower(status);
+                return isSelected
+                ? <option key={option} selected>{option}</option>
+                : <option key={option}>{option}</option>
               })}
             </select>
           </td>
