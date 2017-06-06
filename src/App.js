@@ -1,39 +1,44 @@
 import React, { Component } from 'react';
 import './App.css';
 
+// Material UI Components
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Components
 import Events from './components/Events';
 import SelectedEvent from './components/SelectedEvent';
 
-// const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5'; // Thomas'
+// Alternate API KEY - Thomas Mirmotahari
+// const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5';
 
-const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f'; // Picatic Code Challenge
+// Picatic Code Challenge API KEY
+// TODO: Store API Key on the server
+const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f';
 
 // 575569
-// https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0
 
-class App extends Component {
+export default class App extends Component {
   state = {
     events: [],
     selectedEvent: {},
     tickets: [],
     editTicketId: null
   }
+
   componentDidMount(){
+    // TODO: push in user id based on the owner of the authorization key
     fetch('https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${API_KEY}`
       }
     })
-    // fetch('http://localhost:3000/event?filter[user_id]=575569&page[limit]=12&page[offset]=0')
     .then(res => res.json())
     .then(events => this.setState({ events: events.data }));
   }
 
   getTickets(id){
+    // Fetch tickets for an event based on the id
     fetch(`https://api.picatic.com/v2/ticket_price?filter\[event_id\]=${id}&page\[limit\]=10&page\[offset\]=0`, {
       method: 'GET',
       headers: {
@@ -46,7 +51,10 @@ class App extends Component {
 
   handleSelect = (event) => {
     this.getTickets(event.id);
-    this.setState({ selectedEvent: event, editTicketId: null });
+    this.setState({
+      selectedEvent: event,
+      editTicketId: null
+    });
   }
 
   handleEdit = (id) => {
@@ -54,7 +62,7 @@ class App extends Component {
   }
 
   handleSave = (id, newTicket) => {
-    
+
     console.log(id, newTicket);
 
     // fetch(`https://api.picatic.com/v2/ticket_price/${id}`, {
@@ -76,8 +84,6 @@ class App extends Component {
 
     this.setState({ editTicketId: null });
   }
-
-
 
   render() {
     const { events, selectedEvent, tickets, editTicketId } = this.state;
@@ -118,5 +124,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

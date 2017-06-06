@@ -8,13 +8,13 @@ import Menu from 'material-ui/Menu';
 // Components
 import Event from './Event';
 
-// Styles to overwrite list padding in Material UI Menu Component
+// Styles to overwrite List component nested in Menu component
 const styles = {
   paddingTop: 0,
   paddingBottom: 0
 }
 
-class Events extends Component {
+export default class Events extends Component {
   state = {
     statuses: [
       {type: 'active', title: 'Live'},
@@ -25,6 +25,7 @@ class Events extends Component {
   }
 
   componentWillReceiveProps({ events }) {
+    // Collect live event statuses to determine which status sections to render
     const allEventStatuses = _.map(events, 'attributes.status');
     const liveStatuses = _.uniq(allEventStatuses);
 
@@ -32,10 +33,12 @@ class Events extends Component {
   }
 
   render() {
+    // Destructure props and state
     const { statuses, liveStatuses } = this.state;
     const { events, handleSelect } = this.props;
 
-    const descendingDateEvents = _.sortBy(events, [function({attributes}) {
+    // Sort events by descending date
+    const descendingDateEvents = _.sortBy(events, [function ({attributes}) {
       return attributes.end_date;
     }]).reverse();
 
@@ -44,7 +47,10 @@ class Events extends Component {
 
         {/* Render Status Sections */}
         {statuses.map(status => {
+
+          // Check if there are any events for this status section
           const isLive = liveStatuses.indexOf(status.type) > -1;
+
           if (isLive) {
             return (
               <div key={status.type} className="py-3">
@@ -56,9 +62,11 @@ class Events extends Component {
 
 
                 {/* Render Events */}
-                {/* TODO put in lodash sort array */}
                 {descendingDateEvents.map(event => {
+
+                  // Render event if event status matches parent section status
                   const statusMatch = event.attributes.status === status.type;
+
                   if (statusMatch) {
                     return (
                       <Menu key={event.id} autoWidth={false} width={500} listStyle={styles} >
@@ -70,6 +78,7 @@ class Events extends Component {
                   } else {
                     return false;
                   }
+
                 })}
 
               </div>
@@ -83,5 +92,3 @@ class Events extends Component {
     )
   }
 }
-
-export default Events;
