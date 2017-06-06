@@ -1,0 +1,25 @@
+.ticket_table_head th {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-top: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.54);
+  vertical-align: middle !important;
+}
+
+.ticket_table_body tr {
+  height: 72px;
+}
+
+.ticket_table_body td {
+  font-size: 14px;
+  vertical-align: middle !important;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.w-20 {
+  width: 20% !important;
+}

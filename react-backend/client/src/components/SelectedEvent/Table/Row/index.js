@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import './Row.css';
 
-export default class Row extends Component {
+class Row extends Component {
   state = {
     statusOptions: [
       'Open',
@@ -29,6 +30,7 @@ export default class Row extends Component {
     const { ticket, editTicketId, handleEdit } = this.props;
     const { name, price, quantity, status, statusOptions } = this.state;
     const attr = ticket.attributes;
+    const capitalizeState = _.upperFirst(attr.status)
     const editTicket = ticket.id === editTicketId;
     if (!editTicket) {
       return (
@@ -36,8 +38,8 @@ export default class Row extends Component {
           <td>{attr.name}</td>
           <td>${attr.price}</td>
           <td>{attr.quantity}</td>
-          <td>{attr.status}</td>
-          <td className="text-center"><button className="btn btn-primary" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
+          <td>{capitalizeState}</td>
+          <td className="text-center"><button className="btn btn_ticket_edit" onClick={() => handleEdit(ticket.id)}>Edit</button></td>
         </tr>
       )
     } else {
@@ -94,7 +96,7 @@ export default class Row extends Component {
           <td className="text-center">
             <input
               type="button"
-              className="btn btn-success"
+              className="btn btn_ticket_save"
               value="Save"
               onClick={() => handleEdit(ticket.id)}
             />
@@ -104,3 +106,5 @@ export default class Row extends Component {
     }
   }
 }
+
+export default Row;
