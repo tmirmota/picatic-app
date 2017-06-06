@@ -34,6 +34,11 @@ class Events extends Component {
   render() {
     const { statuses, liveStatuses } = this.state;
     const { events, handleSelect } = this.props;
+
+    const descendingDateEvents = _.sortBy(events, [function({attributes}) {
+      return attributes.end_date;
+    }]).reverse();
+
     return (
       <div>
 
@@ -51,7 +56,8 @@ class Events extends Component {
 
 
                 {/* Render Events */}
-                {events.map(event => {
+                {/* TODO put in lodash sort array */}
+                {descendingDateEvents.map(event => {
                   const statusMatch = event.attributes.status === status.type;
                   if (statusMatch) {
                     return (

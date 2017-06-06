@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import './Event.css';
 
 import MenuItem from 'material-ui/MenuItem';
@@ -17,6 +18,7 @@ const styles = {
 
 export default ({ event, handleSelect }) => {
   const attr = event.attributes;
+  const day = moment(attr.end_date).format('MMM D YYYY');
   return (
     <div>
       <MenuItem
@@ -27,7 +29,7 @@ export default ({ event, handleSelect }) => {
           <div className="col-9 sidebar_event">
             <span className="sidebar_event_title">{attr.title}</span>
             <br/>
-            <span className="sidebar_event_date">{attr.end_date}</span>
+            <span className="sidebar_event_date">{day}</span>
           </div>
           <div className="col-3">
             <ChevronRight className="float-right"/>
