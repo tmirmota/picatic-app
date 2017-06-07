@@ -36,6 +36,9 @@ export default class Row extends Component {
 
   // Update state on input change
   handleInputChange = ({ target }) => {
+    // FIXME: Make all input controlled to remove error
+    console.log('FIXME: Make all inputs controlled to remove error');
+
     // Store value of input
     const value = target.value;
 
@@ -82,7 +85,6 @@ export default class Row extends Component {
               className="form-control"
               value={name}
               onChange={this.handleInputChange}
-              required
             />
           </td>
           <td>
@@ -94,7 +96,6 @@ export default class Row extends Component {
                 className="form-control"
                 value={price}
                 onChange={this.handleInputChange}
-                required
               />
             </div>
           </td>
@@ -105,28 +106,19 @@ export default class Row extends Component {
               className="form-control"
               value={quantity}
               onChange={this.handleInputChange}
-              required
             />
           </td>
           <td>
             <select
               name="status"
               className="form-control custom-select"
-              onClick={this.handleInputChange}
-              required
+              value={status}
+              onChange={this.handleInputChange}
               >
               {statusOptions.map(option => {
-
                 // Does option match state ticket status
-                const isSelected = _.toLower(option) === _.toLower(status);
-
-                // TODO: Should turn into ternary
-                if (isSelected) {
-                  return <option key={option} selected>{option}</option>
-                } else {
-                  return <option key={option}>{option}</option>
-                }
-
+                const inLowerCase = _.toLower(option);
+                return <option key={option} value={inLowerCase}>{option}</option>
               })}
             </select>
           </td>

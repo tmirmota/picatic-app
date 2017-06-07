@@ -84,8 +84,11 @@ export default class App extends Component {
 
   handleSave = (id, newTicket) => {
 
-    console.log(id, newTicket);
+    // TODO: Add form validation for inputs
+    console.log("SAVE METHOD: Fetch Patch request with ticket id: " + id + " and pass body:");
+    console.log(newTicket);
 
+    // TODO: Fetch request to be performed on the server to update the tickets on save
     // fetch(`https://api.picatic.com/v2/ticket_price/${id}`, {
     //   method: 'PATCH',
     //   headers: {

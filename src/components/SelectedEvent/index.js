@@ -4,6 +4,7 @@ import './SelectedEvent.css';
 // Components
 import Table from './Table';
 
+// Component renders error messages for selected event
 class ErrorMessage extends Component {
   render() {
     const { heading, subheading } = this.props;
