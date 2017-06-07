@@ -1,3 +1,9 @@
+.manage_content_sidebar {
+  background-color: rgba(0, 0, 0, 0.05);
+  min-height: 100vh;
+  height: 100%;
+}
+
 .manage_content_sidebar_top {
   background-color: #3949A3;
 }
@@ -10,9 +16,16 @@
 }
 
 .manage_content_sidebar_events {
-  background-color: rgba(0, 0, 0, 0.05);
-  min-height: 100vh;
-  height: 100%;
+  padding-top: 1rem;
+  padding-bottom: 96px;
+}
+
+.manage_content_sidebar_bottom {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .manage_content_sidebar_logo {

@@ -96,25 +96,25 @@ export default class App extends Component {
           <div className="row">
 
             {/* SideBar */}
-            <div className="col-sm-4 col-md-4 col-lg-2 manage_content_sidebar_events px-0">
+            <div className="col-sm-4 col-md-4 col-lg-2 manage_content_sidebar px-0">
               <div className="col manage_content_sidebar_top">
                 <span className="manage_content_sidebar_top_heading">
                   Select an Event
                 </span>
               </div>
-              <div className="pt-3">
+              <div className="manage_content_sidebar_events">
                 <Events
                   events={events}
                   handleSelect={this.handleSelect}
                 />
               </div>
-              <div className="col text-center py-3 align-self-bottom">
-                <img src={logo} className="manage_content_sidebar_logo" />
+              <div className="col manage_content_sidebar_bottom">
+                <img src={logo} className="manage_content_sidebar_bottom_logo" alt="Picatic logo" />
               </div>
             </div>
 
             {/* Manage Event */}
-            <div className="col-sm-8 col-md-9 col-lg-10">
+            <div className="col-sm-8 col-md-8 col-lg-10">
               <SelectedEvent
                 event={selectedEvent}
                 tickets={tickets}
