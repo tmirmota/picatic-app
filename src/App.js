@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
 
 // Material UI Components
@@ -39,7 +40,7 @@ export default class App extends Component {
 
   getTickets(id){
     // Fetch tickets for an event based on the id
-    fetch(`https://api.picatic.com/v2/ticket_price?filter\[event_id\]=${id}&page\[limit\]=10&page\[offset\]=0`, {
+    fetch(`https://api.picatic.com/v2/ticket_price?filter[event_id]=${id}&page[limit]=10&page[offset]=0`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${API_KEY}`
@@ -106,6 +107,9 @@ export default class App extends Component {
                   events={events}
                   handleSelect={this.handleSelect}
                 />
+              </div>
+              <div className="col text-center py-3 align-self-bottom">
+                <img src={logo} className="manage_content_sidebar_logo" />
               </div>
             </div>
 
