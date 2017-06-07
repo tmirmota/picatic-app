@@ -9,18 +9,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Events from './components/Events';
 import SelectedEvent from './components/SelectedEvent';
 
-// Alternate API KEY - Thomas Mirmotahari
-// const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5';
-
 // Picatic Code Challenge API KEY
 // TODO: Store API Key on the server
 const API_KEY = 'sk_live_f1090aeab90d8ed651128084abf4684f';
 
-// 575569
+// Alternate API KEY - Thomas Mirmotahari
+// TODO: Try a different API Key
+// const API_KEY = 'sk_live_210eb57e6b95e5143c492a219091c4e5';
 
 export default class App extends Component {
   state = {
     events: [],
+    userId: null,
     selectedEvent: {},
     tickets: [],
     editTicketId: null
@@ -28,7 +28,25 @@ export default class App extends Component {
 
   componentDidMount(){
     // TODO: push in user id based on the owner of the authorization key
-    fetch('https://api.picatic.com/v2/event?filter[user_id]=575569&page[limit]=12&page[offset]=0', {
+    fetch('https://api.picatic.com/v2/user/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${API_KEY}`
+      }
+    })
+    .then(res => res.json())
+    .then(user => {
+      this.setState({ userId: user.data.id });
+      return this.getEvents()
+    });
+  }
+
+  getEvents() {
+    // Destructure state
+    const { userId } = this.state;
+
+    // Fetch events based on the user id
+    fetch(`https://api.picatic.com/v2/event?filter[user_id]=${userId}&page[limit]=12&page[offset]=0`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${API_KEY}`

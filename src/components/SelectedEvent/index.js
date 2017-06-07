@@ -4,6 +4,23 @@ import './SelectedEvent.css';
 // Components
 import Table from './Table';
 
+class ErrorMessage extends Component {
+  render() {
+    const { heading, subheading } = this.props;
+    return (
+      <div className="col align-self-center text-center">
+        <span className="manage_content_starting_title">
+          {heading}
+        </span>
+        <br/>
+        <span className="manage_content_starting_subtitle">
+          {subheading}
+        </span>
+      </div>
+    );
+  }
+}
+
 export default class SelectedEvent extends Component {
   render() {
     // Destructure props
@@ -15,29 +32,34 @@ export default class SelectedEvent extends Component {
     // Render table if an event is selected
     const table = () => {
       if (event.id) {
-        return (
-          <div className="col px-5">
-            <p className="manage_content_table_title">Tickets</p>
-            <Table
-              event={event}
-              tickets={tickets}
-              editTicketId={editTicketId}
-              handleEdit={handleEdit}
-              handleSave={handleSave}
-            />
-          </div>
-        )
+        const hasTickets = tickets.length > 0;
+        if (hasTickets) {
+          return (
+            <div className="col px-5">
+              <p className="manage_content_table_title">Tickets</p>
+              <Table
+                event={event}
+                tickets={tickets}
+                editTicketId={editTicketId}
+                handleEdit={handleEdit}
+                handleSave={handleSave}
+              />
+            </div>
+          )
+        } else {
+            return (
+              <ErrorMessage
+                heading="No tickets for this event"
+                subheading="Please select another event"
+              />
+            )
+        }
       } else {
         return (
-          <div className="col align-self-center text-center">
-            <span className="manage_content_starting_title">
-              No event selected.
-            </span>
-            <br/>
-            <span className="manage_content_starting_subtitle">
-              Select an event to edit ticket details.
-            </span>
-          </div>
+          <ErrorMessage
+            heading="No event selected"
+            subheading="Select an event to edit ticket details"
+          />
         )
       }
     }
